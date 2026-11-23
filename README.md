@@ -107,6 +107,24 @@ In a real environment I would typically **suspend** first (reversible) and **dea
 
 ---
 
+## System Log evidence
+
+Key events from the org's System Log export (times UTC, Nov 23, 2026):
+
+| Time | Event | What it shows |
+|---|---|---|
+| 01:32:33 | `user.mfa.factor.activate`: FIDO_WEBAUTHN, Maria Lopez | Passkey enrolled (phishing-resistant MFA) |
+| 01:32:40 | `app.oauth2.authorize.code`: SUCCESS, Maria Lopez | SSO to Clinic Patient Portal worked |
+| 01:32:42 | `app.oauth2.token.grant`: FAILURE `invalid_token_endpoint_auth_method` | Expected. Exchanging the code for tokens requires the app's client secret from a backend, which OIDC Debugger doesn't send |
+| 01:36:14 | `user.lifecycle.create` / `activate`: Jordan Reyes | New hire created |
+| 01:37:37 | `group.user_membership.add`: Jordan to Clinical Staff | Added to role group |
+| 01:37:38 | `application.user_membership.add`: Jordan to Patient Portal | App access granted **automatically**, one second after the group add |
+| 01:38:37 | `user.lifecycle.deactivate`: Derek Wilson | Offboarding, with an audit trail |
+
+![System Log](screenshots/07-system-log.png)
+
+---
+
 ## What I learned
 - How Okta's policy layers (global session, app sign-in, account management) interact, and how rule order affects outcomes
 - Using the System Log to trace *why* something happened instead of guessing
