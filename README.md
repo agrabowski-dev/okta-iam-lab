@@ -34,7 +34,7 @@ Created three department groups and assigned users by role.
 
 Access is granted through **group membership**, not individual assignments, so access follows a person's role.
 
-![Groups](screenshots/01-groups.png)
+![Groups](01-groups.png)
 
 ---
 
@@ -75,7 +75,7 @@ Created an OIDC web app, **Clinic Patient Portal (Test)**, assigned only to **Cl
 
 Being an Okta admin does **not** grant app access. Access comes only from assignment (least privilege).
 
-![SSO success](screenshots/03-sso-success.png)
+![SSO success](03-sso-success.png)
 
 ### Step-up authentication
 The Patient Portal kept its own app policy requiring MFA, even though the Dashboard allows password-only for staff. Since a patient portal would handle PHI, it requires stronger authentication. Maria enrolled a **passkey** (phishing-resistant, Face ID).
@@ -95,13 +95,13 @@ Fix: added a scoped, lab-only enrollment rule for Clinical Staff above the catch
 
 **Onboarding:** created new hire **Jordan Reyes** and added him to Clinical Staff. He received the Patient Portal **automatically** through group membership, with a temporary password he must change at first sign-in.
 
-![Onboarding](screenshots/05-onboarding.png)
+![Onboarding](05-onboarding.png)
 
 **Offboarding:** deactivated **Derek Wilson**. All app access was removed, and the deactivation was recorded in the System Log for audit.
 
 In a real environment I would typically **suspend** first (reversible) and **deactivate** after HR confirms the termination.
 
-![Offboarding](screenshots/06-offboarding.png)
+![Offboarding](06-offboarding.png)
 
 ---
 
@@ -118,6 +118,8 @@ Key events from the org's System Log export (times UTC, Nov 23, 2026):
 | 01:37:37 | `group.user_membership.add`: Jordan to Clinical Staff | Added to role group |
 | 01:37:38 | `application.user_membership.add`: Jordan to Patient Portal | App access granted **automatically**, one second after the group add |
 | 01:38:37 | `user.lifecycle.deactivate`: Derek Wilson | Offboarding, with an audit trail |
+
+![System Log](07-system-log.png)
 
 
 ---
